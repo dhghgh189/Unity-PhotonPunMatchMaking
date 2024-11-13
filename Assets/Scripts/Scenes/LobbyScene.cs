@@ -7,28 +7,60 @@ using UnityEngine.SceneManagement;
 
 public class LobbyScene : MonoBehaviourPunCallbacks
 {
+    public enum Panel { LobbyPanel, RoomPanel }
+
+    [SerializeField] UI_MenuPanel menuPanel;
+    [SerializeField] UI_RoomListPanel roomListPanel;
+
     void Start()
     {
-        // ï¿½Îºï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ãµï¿½
+        // ·Îºñ ÀÔÀå ½Ãµµ
         PhotonNetwork.JoinLobby();
     }
 
-    // ï¿½Îºï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
+    // ·Îºñ ÀÔÀå ½Ã
     public override void OnJoinedLobby()
     {
-        Debug.Log("ï¿½Îºï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½");
+        Debug.Log("·Îºñ ÀÔÀå ¼º°ø");
     }
 
-    // ï¿½Îºï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
+    // ·Îºñ ÅðÀå ½Ã
     public override void OnLeftLobby()
     {
-        Debug.Log("ï¿½Îºñ¿¡¼ï¿½ ï¿½ï¿½ï¿½ï¿½");
+        Debug.Log("·Îºñ¿¡¼­ ÅðÀå");
+        roomListPanel.ClearRoomEntries();
         PhotonNetwork.Disconnect();
     }
 
     public override void OnDisconnected(DisconnectCause cause)
     {
-        Debug.Log($"LobbyScene ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ : {cause}");
+        Debug.Log($"LobbyScene Á¢¼Ó ÇØÁ¦ : {cause}");
         SceneManager.LoadScene("LoginScene");
+    }
+
+    // ·Îºñ¿¡ ÀÖ´Â µ¿¾È ¹æµé¿¡ ´ëÇÑ Á¤º¸¸¦ ¼ö½Å
+    // ÃÖÃÊ 1¹ø ÀüÃ¼ ¹æ¿¡ ´ëÇÑ Á¤º¸¸¦ ¹Þ¾Æ¿À¸ç
+    // ÀÌÈÄ¿¡´Â º¯°æ»çÇ×ÀÌ ÀÖ´Â ¹æÀÇ Á¤º¸¸¸À» ¹Þ¾Æ¿Â´Ù.
+    public override void OnRoomListUpdate(List<RoomInfo> roomList)
+    {
+        roomListPanel.UpdateRoomList(roomList);
+    }
+
+    // ¹æ »ý¼º ½Ã
+    public override void OnCreatedRoom()
+    {
+        Debug.Log($"¹æ »ý¼º ¼º°ø : {PhotonNetwork.CurrentRoom.Name}");
+    }
+
+    // ¹æ¿¡ µé¾î°£ °æ¿ì
+    public override void OnJoinedRoom()
+    {
+        Debug.Log($"¹æ ÀÔÀå ¼º°ø : {PhotonNetwork.CurrentRoom.Name}");
+    }
+
+    public void SetActivePanel(Panel panel)
+    {
+        menuPanel.gameObject.SetActive(panel == Panel.LobbyPanel);
+        roomListPanel.gameObject.SetActive(panel == Panel.LobbyPanel);
     }
 }
