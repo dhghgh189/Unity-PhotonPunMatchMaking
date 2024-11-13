@@ -9,7 +9,6 @@ using UnityEngine.UI;
 
 public class UI_CreateRoomPanel : UIBase
 {
-    public const int MAX_PLAYER = 8;
     private void OnEnable()
     {
         // create 버튼 이벤트 추가
@@ -19,7 +18,7 @@ public class UI_CreateRoomPanel : UIBase
 
         // 초기화
         Get<InputField>("RoomNameInputField").text = $"{PhotonNetwork.LocalPlayer.NickName}'s Room";
-        Get<InputField>("MaxPlayerInputField").text = $"{MAX_PLAYER}";
+        Get<InputField>("MaxPlayerInputField").text = $"{Define.MAX_PLAYER}";
 
         // 메뉴 버튼을 클릭하지 못하도록 blocker 활성화
         Get("Blocker").SetActive(true);
@@ -54,7 +53,7 @@ public class UI_CreateRoomPanel : UIBase
         // 값 읽어오기
         string roomName = Get<InputField>("RoomNameInputField").text;
         int maxPlayerCount = int.Parse(Get<InputField>("MaxPlayerInputField").text);
-        maxPlayerCount = Mathf.Clamp(maxPlayerCount, 1, MAX_PLAYER);
+        maxPlayerCount = Mathf.Clamp(maxPlayerCount, 1, Define.MAX_PLAYER);
 
         RoomOptions option = new RoomOptions();
         // 최대 플레이어 수 설정
