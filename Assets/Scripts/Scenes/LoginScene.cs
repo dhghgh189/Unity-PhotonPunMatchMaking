@@ -11,4 +11,10 @@ public class LoginScene : MonoBehaviourPunCallbacks
         // 로비 씬으로 단순 이동
         SceneManager.LoadScene("LobbyScene");
     }
+
+    // 접속 끊긴 경우
+    public override void OnDisconnected(DisconnectCause cause)
+    {
+        Debug.Log("Disconnected");
+    }
 }
