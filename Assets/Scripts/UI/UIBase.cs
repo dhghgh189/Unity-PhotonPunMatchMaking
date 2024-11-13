@@ -23,10 +23,7 @@ public class UIBase : MonoBehaviour
         // 순회하며 Bind
         for (int i = 0; i < arrTransform.Length; i++)
         {
-            if (_objects.TryAdd(arrTransform[i].gameObject.name, arrTransform[i].gameObject))
-            {
-                Debug.Log($"Bind {arrTransform[i].gameObject.name}");
-            }
+            _objects.TryAdd(arrTransform[i].gameObject.name, arrTransform[i].gameObject);
         }
     }
 

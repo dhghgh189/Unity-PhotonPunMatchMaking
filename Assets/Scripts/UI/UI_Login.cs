@@ -12,9 +12,6 @@ public class UI_Login : UIBase
     [SerializeField] float hideDelay;
     WaitForSeconds _delay;
 
-    // 클라이언트 상태를 확인하기 위한 변수
-    ClientState _state;
-
     private void Start()
     {
         // InfoPanel은 초기에 숨긴다.
@@ -24,30 +21,6 @@ public class UI_Login : UIBase
         AddUIEvent(Get("btnLogin"), Enums.UIEvent.PointerClick, Login);
 
         _delay = new WaitForSeconds(hideDelay);
-        _state = PhotonNetwork.NetworkClientState;
-    }
-
-    private void Update()
-    {
-        // 상태 변화가 없으면 return
-        if (_state == PhotonNetwork.NetworkClientState)
-            return;
-
-        // 변화한 상태를 저장
-        _state = PhotonNetwork.NetworkClientState;
-
-#if UNITY_EDITOR
-        Debug.Log($"state : {_state}");
-#endif
-
-        switch (_state)
-        {
-            // 로그인 시도 실패
-            case ClientState.Disconnected:
-                ShowInfoPanel("Login Failed...", Color.red, false);
-                StartCoroutine(HideRoutine());
-                break;
-        }
     }
 
     public void Login(PointerEventData eventData)
@@ -78,9 +51,12 @@ public class UI_Login : UIBase
             Get("InfoPanel").SetActive(true);
     }
 
-    public void HideInfoPanel()
+    public void HideInfoPanel(bool bDelay = false)
     {
-        Get("InfoPanel").SetActive(false);
+        if (!bDelay)
+            Get("InfoPanel").SetActive(false);
+        else
+            StartCoroutine(HideRoutine());
     }
 
     IEnumerator HideRoutine()

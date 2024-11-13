@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class LoginScene : MonoBehaviourPunCallbacks
 {
+    [SerializeField] UI_Login loginUI;
     // 서버에 연결 성공한 경우
     public override void OnConnectedToMaster()
     {
@@ -15,6 +16,8 @@ public class LoginScene : MonoBehaviourPunCallbacks
     // 접속 끊긴 경우
     public override void OnDisconnected(DisconnectCause cause)
     {
-        Debug.Log("Disconnected");
+        Debug.Log($"LoginScene 접속 해제 : {cause}");
+        loginUI.ShowInfoPanel($"Login Failed...\n( {cause} )", Color.red, false);
+        loginUI.HideInfoPanel(true);
     }
 }
