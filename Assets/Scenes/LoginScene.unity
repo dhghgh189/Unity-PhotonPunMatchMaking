@@ -330,8 +330,9 @@ GameObject:
   - component: {fileID: 1930870611}
   - component: {fileID: 1930870610}
   - component: {fileID: 1930870609}
+  - component: {fileID: 1930870613}
   m_Layer: 5
-  m_Name: Canvas
+  m_Name: UI_Login
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -420,6 +421,18 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &1930870613
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1930870608}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 60626ec8beae0da45ae450685f85901e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2048063807
 GameObject:
   m_ObjectHideFlags: 0
@@ -509,7 +522,7 @@ GameObject:
   - component: {fileID: 222643301649686660}
   - component: {fileID: 114986600160398618}
   m_Layer: 5
-  m_Name: Image
+  m_Name: btnLoginImage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -581,7 +594,7 @@ GameObject:
   - component: {fileID: 222686310356415286}
   - component: {fileID: 114926901422391948}
   m_Layer: 5
-  m_Name: Text
+  m_Name: btnLoginText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
