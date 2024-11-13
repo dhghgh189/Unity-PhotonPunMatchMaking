@@ -83,4 +83,18 @@ public class UIBase : MonoBehaviour
                 break;
         }
     }
+
+    public void RemoveUIEvent(GameObject go, Enums.UIEvent eType, UnityAction<PointerEventData> action)
+    {
+        UIEventHandler handler = go.GetComponent<UIEventHandler>();
+        if (handler == null)
+            return;
+
+        switch (eType)
+        {
+            case Enums.UIEvent.PointerClick:
+                handler.OnPointerClicked -= action;
+                break;
+        }
+    }
 }
