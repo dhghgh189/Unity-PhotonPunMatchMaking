@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 using UnityEngine.UIElements;
 
 public class UI_RoomPanel : UIBase
@@ -11,6 +12,9 @@ public class UI_RoomPanel : UIBase
     {
         // Leave Room 버튼 이벤트 추가
         AddUIEvent(Get("btnLeaveRoom"), Enums.UIEvent.PointerClick, LeaveRoom);
+
+        // 최초 1회 방 정보 설정
+        SetRoomInfo();
     }
 
     private void OnDisable()
@@ -23,5 +27,10 @@ public class UI_RoomPanel : UIBase
     {
         // 방 나가기 요청
         PhotonNetwork.LeaveRoom();
+    }
+
+    public void SetRoomInfo()
+    {
+        Get<Text>("txtRoomName").text = PhotonNetwork.CurrentRoom.Name;
     }
 }
