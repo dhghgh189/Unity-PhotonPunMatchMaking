@@ -5,6 +5,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+using PhotonHashtable = ExitGames.Client.Photon.Hashtable;
+
 public class LobbyScene : MonoBehaviourPunCallbacks
 {
     public enum Panel { LobbyPanel, RoomPanel }
@@ -96,6 +98,22 @@ public class LobbyScene : MonoBehaviourPunCallbacks
         // 방에서 퇴장 후 바로 로비에 연결시도를 했을 때 네트워크가 준비되지 않아
         // 코루틴으로 연결가능한 상태가 될 때 까지 대기하도록 처리
         StartCoroutine(LobbyConnectRoutine());
+    }
+
+    // 새 플레이어가 방에 참가 시
+    public override void OnPlayerEnteredRoom(Player newPlayer)
+    {
+        roomPanel.EnterPlayer(newPlayer);
+    }
+
+    public override void OnPlayerLeftRoom(Player otherPlayer)
+    {
+        roomPanel.ExitPlayer(otherPlayer);
+    }
+
+    public override void OnPlayerPropertiesUpdate(Player targetPlayer, PhotonHashtable changedProps)
+    {
+        roomPanel.UpdateRoomInfo();
     }
 
     public void SetActivePanel(Panel panel)
