@@ -17,6 +17,9 @@ public class LobbyScene : MonoBehaviourPunCallbacks
 
     void Start()
     {
+        // 호스트와 씬 상황을 동기화하도록 설정
+        PhotonNetwork.AutomaticallySyncScene = true;
+
         // 로비 입장 시도
         PhotonNetwork.JoinLobby();
     }

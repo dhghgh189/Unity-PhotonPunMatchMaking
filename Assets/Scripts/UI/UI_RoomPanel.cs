@@ -114,7 +114,8 @@ public class UI_RoomPanel : UIBase
             if (!CheckAllReady())
                 return;
 
-            Debug.Log("게임 시작!");
+            // 씬 이동
+            PhotonNetwork.LoadLevel("GameScene");
         }
         // 방장이 아닌 경우 READY 로직 처리
         else
