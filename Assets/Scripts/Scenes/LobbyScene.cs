@@ -21,7 +21,8 @@ public class LobbyScene : MonoBehaviourPunCallbacks
         PhotonNetwork.AutomaticallySyncScene = true;
 
         // 로비 입장 시도
-        PhotonNetwork.JoinLobby();
+        // 연결 가능한 상태까지 대기했다가 연결
+        StartCoroutine(LobbyConnectRoutine());
     }
 
     // 로비 입장 시

@@ -19,9 +19,6 @@ public class UI_CreateRoomPanel : UIBase
         // 초기화
         Get<InputField>("RoomNameInputField").text = $"{PhotonNetwork.LocalPlayer.NickName}'s Room";
         Get<InputField>("MaxPlayerInputField").text = $"{Define.MAX_PLAYER}";
-
-        // 메뉴 버튼을 클릭하지 못하도록 blocker 활성화
-        Get("Blocker").SetActive(true);
     }
 
     private void OnDisable()
@@ -30,8 +27,6 @@ public class UI_CreateRoomPanel : UIBase
         RemoveUIEvent(Get("btnCreate"), Enums.UIEvent.PointerClick, CreateRoom);
         // cancel 버튼 이벤트 제거
         RemoveUIEvent(Get("btnCancel"), Enums.UIEvent.PointerClick, Cancel);
-
-        Get("Blocker").SetActive(false);
     }
 
     public void CreateRoom(PointerEventData eventData)
